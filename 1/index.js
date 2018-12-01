@@ -15,9 +15,7 @@ const calculate = (input, initialFrequency) => {
 
   const reducer = (accumulator, currentValue) => {
     if (!nonUniqFrequency) {
-      frequencies.includes(accumulator)
-        ? (nonUniqFrequency = accumulator)
-        : frequencies.push(accumulator);
+      frequencies.includes(accumulator) ? (nonUniqFrequency = accumulator) : frequencies.push(accumulator);
     }
     return accumulator + currentValue;
   };
