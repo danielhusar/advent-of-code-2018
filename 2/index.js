@@ -5,11 +5,11 @@ const data = input.split('\n').filter(Boolean);
 // Part 1
 let two = 0;
 let three = 0;
-data.forEach(d => {
+data.forEach(lines => {
   let hasTwo = false;
   let hasThree = false;
   const map = {};
-  d.split('').forEach(letter => {
+  lines.split('').forEach(letter => {
     map[letter] ? (map[letter] = map[letter] + 1) : (map[letter] = 1);
   });
 
@@ -21,21 +21,20 @@ data.forEach(d => {
   if (hasTwo) two++;
   if (hasThree) three++;
 });
-
 console.log(two, three, two * three);
 
 // Part 2
 data.forEach((line, index) => {
-  const currentLine = line.split('');
+  const currentLineLetters = line.split('');
   const otherLines = data.slice(index + 1);
 
   otherLines.forEach(otherLine => {
-    const lineToCompare = otherLine.split('');
+    const otherLineLetters = otherLine.split('');
     let differentCharacters = 0;
     let differentIndex;
 
-    currentLine.forEach((_, index) => {
-      if (currentLine[index] != lineToCompare[index]) {
+    currentLineLetters.forEach((_, index) => {
+      if (currentLineLetters[index] != otherLineLetters[index]) {
         differentCharacters++;
         differentIndex = index;
       }
