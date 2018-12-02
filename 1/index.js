@@ -6,13 +6,7 @@ const calculate = (input, initialFrequency) => {
   let iterations = 0;
   let nonUniqFrequency = null;
 
-  const getSum = initialFrequency =>
-    input
-      .split('\n')
-      .map(Number)
-      .filter(Boolean)
-      .reduce(reducer, initialFrequency);
-
+  const getSum = initialFrequency => input.reduce(reducer, initialFrequency);
   const reducer = (accumulator, currentValue) => {
     if (!nonUniqFrequency) {
       frequencies.includes(accumulator) ? (nonUniqFrequency = accumulator) : frequencies.push(accumulator);
@@ -30,7 +24,13 @@ const calculate = (input, initialFrequency) => {
 };
 
 const start = Date.now();
-const results = calculate(input, 0);
+const results = calculate(
+  input
+    .split('\n')
+    .map(Number)
+    .filter(Boolean),
+  0
+);
 const benchmark = Math.round((Date.now() - start) / 1000);
 
 console.log(results[0], results[1]);
