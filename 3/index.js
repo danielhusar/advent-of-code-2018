@@ -42,10 +42,6 @@ data.forEach(row => {
   if (uniq) mapID[id] = true;
 });
 
-let squaresMoreThanOnce = 0;
-Object.keys(map).forEach(key => {
-  if (map[key].length > 1) squaresMoreThanOnce++;
-});
-
+let squaresMoreThanOnce = Object.keys(map).filter(key => map[key].length > 1).length;
 let uniqId = Object.keys(mapID).find(key => mapID[key]);
 console.log(squaresMoreThanOnce, uniqId);
