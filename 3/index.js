@@ -32,10 +32,8 @@ data.forEach(row => {
   for (i = 0; i < width; i++) {
     for (j = 0; j < height; j++) {
       const overlap = setMap(x + i, y + j, id);
-      if (!overlap && uniq) {
-        uniq = true;
-      } else {
-        if (overlap) overlap.forEach(id => (mapID[id] = false));
+      if (overlap) {
+        overlap.forEach(id => (mapID[id] = false));
         uniq = false;
       }
     }
