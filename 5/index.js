@@ -2,9 +2,9 @@ const fs = require('fs');
 const data = fs
   .readFileSync('./input.txt')
   .toString()
-  .trim()
-  .split('');
+  .trim();
 
+// Speed improvement: remove undefined on the go and check also previous character
 let hasDuplicates;
 const removePolymers = input => {
   hasDuplicates = false;
@@ -25,9 +25,20 @@ const removePolymers = input => {
     .filter(Boolean);
 };
 
-let removedPolymers = removePolymers(data);
-while (hasDuplicates) {
-  removedPolymers = removePolymers(removedPolymers);
-}
+const getShortestPolymer = data => {
+  let removedPolymers = removePolymers(data.split(''));
+  while (hasDuplicates) {
+    removedPolymers = removePolymers(removedPolymers);
+  }
+  return removedPolymers;
+};
+console.log(getShortestPolymer(data).length);
 
-console.log(removedPolymers.length);
+const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+const alphabetMap = {};
+alphabet.forEach(char => {
+  alphabetMap[char] = getShortestPolymer(data.replace(new RegExp(char, 'gi'), '')).length;
+});
+
+const alphabetMapSorted = Object.keys(alphabetMap).sort((a, b) => alphabetMap[a] - alphabetMap[b]);
+console.log(alphabetMapSorted[0], alphabetMap[alphabetMapSorted[0]]);
