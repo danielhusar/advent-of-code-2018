@@ -4,7 +4,16 @@ const data = fs
   .toString()
   .trim();
 
-// Speed improvement: remove undefined on the go and check also previous character
+const start = Date.now();
+
+const getValidPrevCharIndex = (input, index) => {
+  while (!input[index - 1] && index >= 0) {
+    index--;
+  }
+  if (index < 0) return;
+  return index;
+};
+
 let hasDuplicates;
 const removePolymers = input => {
   hasDuplicates = false;
@@ -19,6 +28,17 @@ const removePolymers = input => {
         input[index + 1] = undefined;
         return;
       }
+
+      // This takes actually longer lol
+      // const prevCharIndex = getValidPrevCharIndex(input, index);
+      // if (prevCharIndex == null) return char;
+      // const prevChar = input[prevCharIndex];
+
+      // if (prevChar && char !== prevChar && char.toLowerCase() === prevChar.toLowerCase()) {
+      //   hasDuplicates = true;
+      //   input[prevCharIndex] = undefined;
+      //   return;
+      // }
 
       return char;
     })
@@ -42,3 +62,6 @@ alphabet.forEach(char => {
 
 const alphabetMapSorted = Object.keys(alphabetMap).sort((a, b) => alphabetMap[a] - alphabetMap[b]);
 console.log(alphabetMapSorted[0], alphabetMap[alphabetMapSorted[0]]);
+
+const benchmark = Math.round((Date.now() - start) / 1000);
+console.log(`Took: ${benchmark} seconds`);
